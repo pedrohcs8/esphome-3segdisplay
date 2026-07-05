@@ -277,7 +277,7 @@ uint8_t THREE_SEVENSEGComponent::print(uint8_t start_pos, const char *str) {
       if (pos != start_pos && pos > 0 && this->buffer_[pos - 1] ^ 0b10000000)
         this->buffer_[pos - 1] |= 0b10000000;
     } else {
-      if (pos >= 2) {
+      if (pos >= 4) {
         break;
       }
       this->buffer_[pos] = data;
