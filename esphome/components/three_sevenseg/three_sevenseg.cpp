@@ -163,13 +163,13 @@ void THREE_SEVENSEGComponent::setup() {
   this->b_pin_->digital_write(false);
 
   this->c_pin_->setup();
-  this->c_pin_->digital_write(false);
+  this->c_pin_->digital_write(true);
 
   this->d_pin_->setup();
-  this->d_pin_->digital_write(false);
+  this->d_pin_->digital_write(true);
 
   this->e_pin_->setup();
-  this->e_pin_->digital_write(false);
+  this->e_pin_->digital_write(true);
 
   this->f_pin_->setup();
   this->f_pin_->digital_write(false);
@@ -178,7 +178,7 @@ void THREE_SEVENSEGComponent::setup() {
   this->g_pin_->digital_write(false);
 
   this->dp_pin_->setup();
-  this->dp_pin_->digital_write(false);
+  this->dp_pin_->digital_write(true);
 
   // TODO: Put this on Low again.
 
