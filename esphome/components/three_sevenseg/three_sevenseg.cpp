@@ -330,9 +330,9 @@ uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
   // uint8_t secondDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[1]];
   // uint8_t thirdDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[2]];
 
-  this->print(&displayNumbers[0]);
-  this->print(&displayNumbers[1]);
-  this->print(&displayNumbers[2]);
+  this->print(0, &displayNumbers[0]);
+  this->print(1, &displayNumbers[1]);
+  this->print(2, &displayNumbers[2]);
 
   return 0;
 }
