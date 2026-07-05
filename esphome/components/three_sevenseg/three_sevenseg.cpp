@@ -221,12 +221,14 @@ void THREE_SEVENSEGComponent::display() {
 void THREE_SEVENSEGComponent::set_digit_(uint8_t digit, uint8_t ch, bool dot) {
   uint8_t segments = 0;
   // concat to printable ASCII characters
-  if (ch < 128) {
-    segments = THREE_SEVENSEG_ASCII_TO_RAW[ch];
-  } else {
-    segments = 128;
-  }
-  segments = THREE_SEVENSEG_ASCII_TO_RAW[ch];
+  // if (ch < 128) {
+  //   segments = THREE_SEVENSEG_ASCII_TO_RAW[ch];
+  // } else {
+  //   segments = 128;
+  // }
+  // segments = THREE_SEVENSEG_ASCII_TO_RAW[ch];
+
+  segments = ch;
 
   // write binary representation of the segments
   this->clear_display_();
@@ -261,6 +263,10 @@ void THREE_SEVENSEGComponent::clear_display_() {
   this->g_pin_->digital_write(true);
   this->dp_pin_->digital_write(true);
 
+  this->d1_pin_->digital_write(false);
+  this->d2_pin_->digital_write(false);
+  this->d3_pin_->digital_write(false);
+
   delay(10);
 }
 
@@ -273,18 +279,15 @@ uint8_t THREE_SEVENSEGComponent::print(uint8_t start_pos, const char *str) {
 
     if (c >= 0 && c <= 127)
       data = THREE_SEVENSEG_ASCII_TO_RAW[c];
-
-    // if (c == '.') {
-    //   if (pos != start_pos && pos > 0 && this->buffer_[pos - 1] ^ 0b10000000)
-    //     this->buffer_[pos - 1] |= 0b10000000;
-    // } else {
-    // if (pos >= 3) {
-    // break;
-    // }
-    // }
-
-    this->buffer_[pos] = data;
-
+    if (c == '.') {
+      if (pos != start_pos && pos > 0 && this->buffer_[pos - 1] ^ 0b10000000)
+        this->buffer_[pos - 1] |= 0b10000000;
+    } else {
+      if (pos >= 3) {
+        break;
+      }
+      this->buffer_[pos] = data;
+    }
     pos++;
   }
   return pos - start_pos;
