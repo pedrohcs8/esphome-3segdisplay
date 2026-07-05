@@ -210,6 +210,7 @@ void THREE_SEVENSEGComponent::setup() {
 
 void THREE_SEVENSEGComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "Teste foda");
+  ESP_LOGCONFIG(TAG, "Estados: %u, %u, %u, %u, %u, %u, %u", a_pin_, b_pin_, c_pin_, d1_pin_, d2_pin_, d3_pin_);
   LOG_UPDATE_INTERVAL(this);
 }
 
