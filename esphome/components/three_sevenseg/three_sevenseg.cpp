@@ -201,7 +201,6 @@ void THREE_SEVENSEGComponent::setup() {
 
 void THREE_SEVENSEGComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "Teste foda?");
-
   LOG_UPDATE_INTERVAL(this);
 }
 
@@ -280,7 +279,6 @@ uint8_t THREE_SEVENSEGComponent::print(uint8_t start_pos, const char *str) {
       if (pos >= 3) {
         break;
       }
-
       this->buffer_[pos] = data;
     }
     pos++;
