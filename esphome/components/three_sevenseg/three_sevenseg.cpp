@@ -141,6 +141,7 @@ constexpr uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
 
 float THREE_SEVENSEGComponent::get_setup_priority() const { return setup_priority::PROCESSOR; }
 
+void THREE_SEVENSEGComponent::set_writer(three_sevenseg_writer_t &&writer) { this->writer_ = writer; }
 void THREE_SEVENSEGComponent::set_a_pin(GPIOPin *a_pin) { this->a_pin_ = a_pin; }
 void THREE_SEVENSEGComponent::set_b_pin(GPIOPin *b_pin) { this->b_pin_ = b_pin; }
 void THREE_SEVENSEGComponent::set_c_pin(GPIOPin *c_pin) { this->c_pin_ = c_pin; }
