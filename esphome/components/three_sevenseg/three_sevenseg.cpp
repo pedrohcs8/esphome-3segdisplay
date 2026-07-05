@@ -9,7 +9,7 @@ static const char *const TAG = "three_sevenseg";
 
 static const uint8_t THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
 
-const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[127] PROGMEM = {THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x01
+const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x01
                                                           THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x02
                                                           THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x03
                                                           THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x04
@@ -135,6 +135,7 @@ const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[127] PROGMEM = {THREE_SEVENSEG_UNKNOWN
                                                           0b00000110,                   // '|', ord 0x7C
                                                           0b00000111,                   // '}', ord 0x7D
                                                           0b01100011,                   // '~', ord 0x7E (degree symbol)
+                                                          THREE_SEVENSEG_UNKNOWN_CHAR,
                                                           THREE_SEVENSEG_UNKNOWN_CHAR};
 
 float THREE_SEVENSEGComponent::get_setup_priority() const { return setup_priority::PROCESSOR; }
