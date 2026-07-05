@@ -7,7 +7,7 @@ namespace esphome::three_sevenseg {
 
 static const char *const TAG = "three_sevenseg";
 
-static const uint8_t THREE_THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
+static const uint8_t THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
 
 const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
     THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x00
@@ -269,7 +269,7 @@ uint8_t THREE_SEVENSEGComponent::print(uint8_t start_pos, const char *str) {
   uint8_t pos = start_pos;
   std::string input = std::string(str);
   for (unsigned char c : input) {
-    uint8_t data = THREE_THREE_SEVENSEG_UNKNOWN_CHAR;
+    uint8_t data = THREE_SEVENSEG_UNKNOWN_CHAR;
     if (c >= 0 && c <= 127)
       data = THREE_SEVENSEG_ASCII_TO_RAW[c];
     if (c == '.') {
