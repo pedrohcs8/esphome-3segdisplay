@@ -1,7 +1,7 @@
 #pragma once
 
 #include "esphome/core/component.h"
-#include "esphome/core/gpio.h"
+#include "esphome/components/gpio/output/gpio_binary_output.h"
 #include "esphome/core/time.h"
 
 #include "esphome/components/display/display.h"
@@ -26,17 +26,17 @@ class THREE_SEVENSEGComponent final : public PollingComponent {
 
   void display();
 
-  void set_a_pin(GPIOPin *a_pin);
-  void set_b_pin(GPIOPin *b_pin);
-  void set_c_pin(GPIOPin *c_pin);
-  void set_d_pin(GPIOPin *d_pin);
-  void set_e_pin(GPIOPin *e_pin);
-  void set_f_pin(GPIOPin *f_pin);
-  void set_g_pin(GPIOPin *g_pin);
-  void set_dp_pin(GPIOPin *dp_pin);
-  void set_d1_pin(GPIOPin *d1_pin);
-  void set_d2_pin(GPIOPin *d2_pin);
-  void set_d3_pin(GPIOPin *d3_pin);
+  void set_a_pin(gpio::GPIOBinaryOutput *a_pin);
+  void set_b_pin(gpio::GPIOBinaryOutput *b_pin);
+  void set_c_pin(gpio::GPIOBinaryOutput *c_pin);
+  void set_d_pin(gpio::GPIOBinaryOutput *d_pin);
+  void set_e_pin(gpio::GPIOBinaryOutput *e_pin);
+  void set_f_pin(gpio::GPIOBinaryOutput *f_pin);
+  void set_g_pin(gpio::GPIOBinaryOutput *g_pin);
+  void set_dp_pin(gpio::GPIOBinaryOutput *dp_pin);
+  void set_d1_pin(gpio::GPIOBinaryOutput *d1_pin);
+  void set_d2_pin(gpio::GPIOBinaryOutput *d2_pin);
+  void set_d3_pin(gpio::GPIOBinaryOutput *d3_pin);
 
   /// Print `str` at the given position.
   uint8_t print(uint8_t pos, const char *str);
@@ -45,21 +45,20 @@ class THREE_SEVENSEGComponent final : public PollingComponent {
   void clear_display_();
   void set_digit_();
 
-  GPIOPin *a_pin_{nullptr};
-  GPIOPin *b_pin_{nullptr};
-  GPIOPin *c_pin_{nullptr};
-  GPIOPin *d_pin_{nullptr};
-  GPIOPin *e_pin_{nullptr};
-  GPIOPin *f_pin_{nullptr};
-  GPIOPin *g_pin_{nullptr};
-  GPIOPin *dp_pin_{nullptr};
-  GPIOPin *d1_pin_{nullptr};
-  GPIOPin *d2_pin_{nullptr};
-  GPIOPin *d3_pin_{nullptr};
+  gpio::GPIOBinaryOutput *a_pin_{nullptr};
+  gpio::GPIOBinaryOutput *b_pin_{nullptr};
+  gpio::GPIOBinaryOutput *c_pin_{nullptr};
+  gpio::GPIOBinaryOutput *d_pin_{nullptr};
+  gpio::GPIOBinaryOutput *e_pin_{nullptr};
+  gpio::GPIOBinaryOutput *f_pin_{nullptr};
+  gpio::GPIOBinaryOutput *g_pin_{nullptr};
+  gpio::GPIOBinaryOutput *dp_pin_{nullptr};
+  gpio::GPIOBinaryOutput *d1_pin_{nullptr};
+  gpio::GPIOBinaryOutput *d2_pin_{nullptr};
+  gpio::GPIOBinaryOutput *d3_pin_{nullptr};
 
   uint8_t *buffer_;
   uint16_t buffer_size_{0};
-  bool setup_complete_{false};
 
   optional<three_sevenseg_writer_t> writer_{};
 };
