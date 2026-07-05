@@ -7,9 +7,9 @@ namespace esphome::three_sevenseg {
 
 static const char *const TAG = "three_sevenseg";
 
-static const uint8_t THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
+static const uint8_t THREE_THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
 
-constexpr uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
+const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
     THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x00
     THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x01
     THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x02
@@ -137,6 +137,7 @@ constexpr uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
     0b00000110,                   // '|', ord 0x7C
     0b00000111,                   // '}', ord 0x7D
     0b01100011,                   // '~', ord 0x7E (degree symbol)
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x7F
 };
 
 float THREE_SEVENSEGComponent::get_setup_priority() const { return setup_priority::PROCESSOR; }
@@ -268,7 +269,7 @@ uint8_t THREE_SEVENSEGComponent::print(uint8_t start_pos, const char *str) {
   uint8_t pos = start_pos;
   std::string input = std::string(str);
   for (unsigned char c : input) {
-    uint8_t data = THREE_SEVENSEG_UNKNOWN_CHAR;
+    uint8_t data = THREE_THREE_SEVENSEG_UNKNOWN_CHAR;
     if (c >= 0 && c <= 127)
       data = THREE_SEVENSEG_ASCII_TO_RAW[c];
     if (c == '.') {
