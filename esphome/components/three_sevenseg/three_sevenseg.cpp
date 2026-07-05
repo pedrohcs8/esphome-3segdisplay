@@ -9,7 +9,7 @@ static const char *const TAG = "three_sevenseg";
 
 static const uint8_t THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
 
-const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
+const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[127] PROGMEM = {
     THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x00
     THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x01
     THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x02
@@ -58,7 +58,7 @@ const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
     0b00000001,                   // '-', ord 0x2D
     0b10000000,                   // '.', ord 0x2E
     THREE_SEVENSEG_UNKNOWN_CHAR,  // '/', ord 0x2F
-    0b10000001,                   // '0', ord 0x30
+    0b01111110,                   // '0', ord 0x30
     0b00110000,                   // '1', ord 0x31
     0b01101101,                   // '2', ord 0x32
     0b01111001,                   // '3', ord 0x33
@@ -137,7 +137,6 @@ const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
     0b00000110,                   // '|', ord 0x7C
     0b00000111,                   // '}', ord 0x7D
     0b01100011,                   // '~', ord 0x7E (degree symbol)
-    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x7F
 };
 
 float THREE_SEVENSEGComponent::get_setup_priority() const { return setup_priority::PROCESSOR; }
@@ -239,16 +238,16 @@ void THREE_SEVENSEGComponent::set_digit_(uint8_t digit, uint8_t ch, bool dot) {
     ct++;
   }
 
-  this->dp_pin_->digital_write((segments & 0b10000000) || dot);
-  this->a_pin_->digital_write(segments & 0b01000000);
-  this->b_pin_->digital_write(segments & 0b00100000);
-  this->c_pin_->digital_write(segments & 0b00010000);
-  this->d_pin_->digital_write(segments & 0b00001000);
-  this->e_pin_->digital_write(segments & 0b00000100);
-  this->f_pin_->digital_write(segments & 0b00000010);
-  this->g_pin_->digital_write(segments & 0b00000001);
+  this->dp_pin_->digital_write(!((segments & 0b10000000) || dot));
+  this->a_pin_->digital_write(!(segments & 0b01000000));
+  this->b_pin_->digital_write(!(segments & 0b00100000));
+  this->c_pin_->digital_write(!(segments & 0b00010000));
+  this->d_pin_->digital_write(!(segments & 0b00001000));
+  this->e_pin_->digital_write(!(segments & 0b00000100));
+  this->f_pin_->digital_write(!(segments & 0b00000010));
+  this->g_pin_->digital_write(!(segments & 0b00000001));
 
-  delay(10);
+  delay(5);
 };
 
 void THREE_SEVENSEGComponent::clear_display_() {
@@ -261,7 +260,7 @@ void THREE_SEVENSEGComponent::clear_display_() {
   this->g_pin_->digital_write(true);
   this->dp_pin_->digital_write(true);
 
-  delay(20);
+  delay(10);
 }
 
 // print functions
