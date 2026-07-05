@@ -9,7 +9,39 @@ static const char *const TAG = "three_sevenseg";
 
 static const uint8_t THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
 
-constexpr uint8_t THREE_SEVENSEG_ASCII_TO_RAW[95] PROGMEM = {
+const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x00
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x01
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x02
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x03
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x04
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x05
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x06
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x07
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x08
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x09
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x0A
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x0B
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x0C
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x0D
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x0E
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x0F
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x10
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x11
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x12
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x13
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x14
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x15
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x16
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x17
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x18
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x19
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x1A
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x1B
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x1C
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x1D
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x1E
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x1F
     0b00000000,                   // ' ', ord 0x20
     0b10110000,                   // '!', ord 0x21
     0b00100010,                   // '"', ord 0x22
@@ -26,7 +58,7 @@ constexpr uint8_t THREE_SEVENSEG_ASCII_TO_RAW[95] PROGMEM = {
     0b00000001,                   // '-', ord 0x2D
     0b10000000,                   // '.', ord 0x2E
     THREE_SEVENSEG_UNKNOWN_CHAR,  // '/', ord 0x2F
-    0b01111110,                   // '0', ord 0x30
+    0b10000001,                   // '0', ord 0x30
     0b00110000,                   // '1', ord 0x31
     0b01101101,                   // '2', ord 0x32
     0b01111001,                   // '3', ord 0x33
@@ -105,6 +137,7 @@ constexpr uint8_t THREE_SEVENSEG_ASCII_TO_RAW[95] PROGMEM = {
     0b00000110,                   // '|', ord 0x7C
     0b00000111,                   // '}', ord 0x7D
     0b01100011,                   // '~', ord 0x7E (degree symbol)
+    THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x7F
 };
 
 float THREE_SEVENSEGComponent::get_setup_priority() const { return setup_priority::PROCESSOR; }
@@ -152,13 +185,13 @@ void THREE_SEVENSEGComponent::setup() {
   // TODO: Put this on Low again.
 
   this->d1_pin_->setup();
-  this->d1_pin_->digital_write(true);
+  this->d1_pin_->digital_write(false);
 
   this->d2_pin_->setup();
-  this->d2_pin_->digital_write(true);
+  this->d2_pin_->digital_write(false);
 
   this->d3_pin_->setup();
-  this->d3_pin_->digital_write(true);
+  this->d3_pin_->digital_write(false);
 
   this->buffer_ = new uint8_t[3];
   this->buffer_size_ = sizeof(this->buffer_);
@@ -234,19 +267,18 @@ void THREE_SEVENSEGComponent::clear_display_() {
 // print functions
 uint8_t THREE_SEVENSEGComponent::print(uint8_t start_pos, const char *str) {
   uint8_t pos = start_pos;
-  for (; *str != '\0'; str++) {
+  std::string input = std::string(str);
+  for (unsigned char c : input) {
     uint8_t data = THREE_SEVENSEG_UNKNOWN_CHAR;
-    if (*str >= ' ' && *str <= '~')
-      data = progmem_read_byte(&THREE_SEVENSEG_ASCII_TO_RAW[*str - ' ']);
-
-    if (data == THREE_SEVENSEG_UNKNOWN_CHAR) {
-      ESP_LOGW(TAG, "Encountered character '%c' with no MAX7219 representation while translating string!", *str);
-    }
-    if (*str == '.') {
-      if (pos != start_pos)
-        pos--;
-      this->buffer_[pos] |= 0b10000000;
+    if (c >= 0 && c <= 127)
+      data = THREE_SEVENSEG_ASCII_TO_RAW[c];
+    if (c == '.') {
+      if (pos != start_pos && pos > 0 && this->buffer_[pos - 1] ^ 0b10000000)
+        this->buffer_[pos - 1] |= 0b10000000;
     } else {
+      if (pos >= 3) {
+        break;
+      }
       this->buffer_[pos] = data;
     }
     pos++;
