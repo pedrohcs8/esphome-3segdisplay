@@ -59,7 +59,7 @@ const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
     0b10000000,                   // '.', ord 0x2E
     THREE_SEVENSEG_UNKNOWN_CHAR,  // '/', ord 0x2F
     0b10000001,                   // '0', ord 0x30
-    0b00010000,                   // '1', ord 0x31
+    0b00110000,                   // '1', ord 0x31
     0b01101101,                   // '2', ord 0x32
     0b01111001,                   // '3', ord 0x33
     0b00110011,                   // '4', ord 0x34
