@@ -326,13 +326,13 @@ uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
   char displayNumbers[3];
   snprintf(displayNumbers, 3, "%f", tempHum);
 
-  uint8_t firstDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
-  uint8_t secondDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
-  uint8_t thirdDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
+  // uint8_t firstDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
+  // uint8_t secondDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[1]];
+  // uint8_t thirdDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[2]];
 
-  set_digit_(0, firstDigit, false);
-  set_digit_(1, secondDigit, true);
-  set_digit_(2, thirdDigit, false);
+  this->print(&displayNumbers[0]);
+  this->print(&displayNumbers[1]);
+  this->print(&displayNumbers[2]);
 
   return 0;
 }
