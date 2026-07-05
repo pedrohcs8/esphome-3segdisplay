@@ -270,17 +270,21 @@ uint8_t THREE_SEVENSEGComponent::print(uint8_t start_pos, const char *str) {
   std::string input = std::string(str);
   for (unsigned char c : input) {
     uint8_t data = THREE_SEVENSEG_UNKNOWN_CHAR;
+
     if (c >= 0 && c <= 127)
       data = THREE_SEVENSEG_ASCII_TO_RAW[c];
-    if (c == '.') {
-      if (pos != start_pos && pos > 0 && this->buffer_[pos - 1] ^ 0b10000000)
-        this->buffer_[pos - 1] |= 0b10000000;
-    } else {
-      if (pos >= 3) {
-        break;
-      }
-      this->buffer_[pos] = data;
-    }
+
+    // if (c == '.') {
+    //   if (pos != start_pos && pos > 0 && this->buffer_[pos - 1] ^ 0b10000000)
+    //     this->buffer_[pos - 1] |= 0b10000000;
+    // } else {
+    // if (pos >= 3) {
+    // break;
+    // }
+    // }
+
+    this->buffer_[pos] = data;
+
     pos++;
   }
   return pos - start_pos;
