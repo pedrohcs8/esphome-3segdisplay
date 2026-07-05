@@ -60,7 +60,7 @@ async def to_code(config):
     cg.add(var.set_e_pin(pin_e))
 
     pin_f = await cg.gpio_pin_expression(config[CONF_F_PIN])
-    cg.add(var.set_a_pin(pin_f))
+    cg.add(var.set_f_pin(pin_f))
 
     pin_g = await cg.gpio_pin_expression(config[CONF_G_PIN])
     cg.add(var.set_g_pin(pin_g))
