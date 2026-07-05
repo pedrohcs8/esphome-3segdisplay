@@ -163,13 +163,13 @@ void THREE_SEVENSEGComponent::setup() {
   this->b_pin_->digital_write(false);
 
   this->c_pin_->setup();
-  this->c_pin_->digital_write(true);
+  this->c_pin_->digital_write(false);
 
   this->d_pin_->setup();
-  this->d_pin_->digital_write(true);
+  this->d_pin_->digital_write(false);
 
   this->e_pin_->setup();
-  this->e_pin_->digital_write(true);
+  this->e_pin_->digital_write(false);
 
   this->f_pin_->setup();
   this->f_pin_->digital_write(false);
@@ -178,18 +178,18 @@ void THREE_SEVENSEGComponent::setup() {
   this->g_pin_->digital_write(false);
 
   this->dp_pin_->setup();
-  this->dp_pin_->digital_write(true);
+  this->dp_pin_->digital_write(false);
 
   // TODO: Put this on Low again.
 
   this->d1_pin_->setup();
-  this->d1_pin_->digital_write(true);
+  this->d1_pin_->digital_write(false);
 
   this->d2_pin_->setup();
-  this->d2_pin_->digital_write(true);
+  this->d2_pin_->digital_write(false);
 
   this->d3_pin_->setup();
-  this->d3_pin_->digital_write(true);
+  this->d3_pin_->digital_write(false);
 
   this->buffer_ = new uint8_t[3];
   this->buffer_size_ = sizeof(this->buffer_);
