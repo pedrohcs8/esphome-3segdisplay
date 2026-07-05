@@ -263,6 +263,28 @@ void THREE_SEVENSEGComponent::clear_display_() {
   delay(20);
 }
 
+// print functions
+uint8_t THREE_SEVENSEGComponent::print(uint8_t start_pos, const char *str) {
+  uint8_t pos = start_pos;
+  std::string input = std::string(str);
+  for (unsigned char c : input) {
+    uint8_t data = THREE_SEVENSEG_UNKNOWN_CHAR;
+    if (c >= 0 && c <= 127)
+      data = THREE_SEVENSEG_ASCII_TO_RAW[c];
+    if (c == '.') {
+      if (pos != start_pos && pos > 0 && this->buffer_[pos - 1] ^ 0b10000000)
+        this->buffer_[pos - 1] |= 0b10000000;
+    } else {
+      if (pos >= 3) {
+        break;
+      }
+      this->buffer_[pos] = data;
+    }
+    pos++;
+  }
+  return pos - start_pos;
+}
+
 uint8_t THREE_SEVENSEGComponent::print(const char *str) { return this->print(0, str); }
 
 uint8_t THREE_SEVENSEGComponent::print(std::string str) { return this->print(0, str.c_str()); }
@@ -275,6 +297,17 @@ uint8_t THREE_SEVENSEGComponent::printf(uint8_t pos, const char *format, ...) {
   va_end(arg);
   if (ret > 0)
     return this->print(pos, buffer);
+  return 0;
+}
+
+uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
+  va_list arg;
+  va_start(arg, format);
+  char buffer[64];
+  int ret = vsnprintf(buffer, sizeof(buffer), format, arg);
+  va_end(arg);
+  if (ret > 0)
+    return this->print(buffer);
   return 0;
 }
 
