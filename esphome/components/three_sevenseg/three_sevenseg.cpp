@@ -323,8 +323,8 @@ uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
 }
 
 uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
-  char displayNumbers[4];
-  snprintf(displayNumbers, 4, "%f", tempHum);
+  char displayNumbers[6];
+  snprintf(displayNumbers, 6, "%f", tempHum);
 
   // uint8_t firstDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
   // uint8_t secondDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[1]];
