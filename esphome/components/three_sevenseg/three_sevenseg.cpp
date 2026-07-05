@@ -201,6 +201,16 @@ void THREE_SEVENSEGComponent::setup() {
 
 void THREE_SEVENSEGComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "Teste foda?");
+
+  ESP_LOGCONFIG(TAG, "A Pin: %s", this->a_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "B Pin: %s", this->b_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "C Pin: %s", this->c_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "D Pin: %s", this->d_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "E Pin: %s", this->e_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "F Pin: %s", this->f_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "G Pin: %s", this->g_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "DP Pin: %s", this->dp_pin_->dump_summary().c_str());
+
   LOG_UPDATE_INTERVAL(this);
 }
 
