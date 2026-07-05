@@ -323,8 +323,8 @@ uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
 }
 
 uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
-  char displayNumbers[3];
-  snprintf(displayNumbers, 3, "%f", tempHum);
+  char displayNumbers[4];
+  snprintf(displayNumbers, 4, "%f", tempHum);
 
   // uint8_t firstDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
   // uint8_t secondDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[1]];
@@ -332,7 +332,7 @@ uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
 
   this->print(0, &displayNumbers[0]);
   this->print(1, &displayNumbers[1]);
-  this->print(2, &displayNumbers[2]);
+  this->print(2, &displayNumbers[3]);
 
   return 0;
 }
