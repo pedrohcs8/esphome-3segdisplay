@@ -141,49 +141,71 @@ constexpr uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
 
 float THREE_SEVENSEGComponent::get_setup_priority() const { return setup_priority::PROCESSOR; }
 
-void THREE_SEVENSEGComponent::set_a_pin(gpio::GPIOBinaryOutput *a_pin) { this->a_pin_ = a_pin; }
-void THREE_SEVENSEGComponent::set_b_pin(gpio::GPIOBinaryOutput *b_pin) { this->b_pin_ = b_pin; }
-void THREE_SEVENSEGComponent::set_c_pin(gpio::GPIOBinaryOutput *c_pin) { this->c_pin_ = c_pin; }
-void THREE_SEVENSEGComponent::set_d_pin(gpio::GPIOBinaryOutput *d_pin) { this->d_pin_ = d_pin; }
-void THREE_SEVENSEGComponent::set_e_pin(gpio::GPIOBinaryOutput *e_pin) { this->e_pin_ = e_pin; }
-void THREE_SEVENSEGComponent::set_f_pin(gpio::GPIOBinaryOutput *f_pin) { this->f_pin_ = f_pin; }
-void THREE_SEVENSEGComponent::set_g_pin(gpio::GPIOBinaryOutput *g_pin) { this->g_pin_ = g_pin; }
-void THREE_SEVENSEGComponent::set_dp_pin(gpio::GPIOBinaryOutput *dp_pin) { this->dp_pin_ = dp_pin; }
-void THREE_SEVENSEGComponent::set_d1_pin(gpio::GPIOBinaryOutput *d1_pin) { this->d1_pin_ = d1_pin; }
-void THREE_SEVENSEGComponent::set_d2_pin(gpio::GPIOBinaryOutput *d2_pin) { this->d2_pin_ = d2_pin; }
-void THREE_SEVENSEGComponent::set_d3_pin(gpio::GPIOBinaryOutput *d3_pin) { this->d3_pin_ = d3_pin; }
+void THREE_SEVENSEGComponent::set_a_pin(GPIOPin *a_pin) { this->a_pin_ = a_pin; }
+void THREE_SEVENSEGComponent::set_b_pin(GPIOPin *b_pin) { this->b_pin_ = b_pin; }
+void THREE_SEVENSEGComponent::set_c_pin(GPIOPin *c_pin) { this->c_pin_ = c_pin; }
+void THREE_SEVENSEGComponent::set_d_pin(GPIOPin *d_pin) { this->d_pin_ = d_pin; }
+void THREE_SEVENSEGComponent::set_e_pin(GPIOPin *e_pin) { this->e_pin_ = e_pin; }
+void THREE_SEVENSEGComponent::set_f_pin(GPIOPin *f_pin) { this->f_pin_ = f_pin; }
+void THREE_SEVENSEGComponent::set_g_pin(GPIOPin *g_pin) { this->g_pin_ = g_pin; }
+void THREE_SEVENSEGComponent::set_dp_pin(GPIOPin *dp_pin) { this->dp_pin_ = dp_pin; }
+void THREE_SEVENSEGComponent::set_d1_pin(GPIOPin *d1_pin) { this->d1_pin_ = d1_pin; }
+void THREE_SEVENSEGComponent::set_d2_pin(GPIOPin *d2_pin) { this->d2_pin_ = d2_pin; }
+void THREE_SEVENSEGComponent::set_d3_pin(GPIOPin *d3_pin) { this->d3_pin_ = d3_pin; }
 
 void THREE_SEVENSEGComponent::setup() {
   ESP_LOGCONFIG(TAG, "Iniciando Display 3 Segmentos!");
 
-  this->a_pin_->set_state(false);
-  this->b_pin_->set_state(false);
-  this->c_pin_->set_state(false);
-  this->d_pin_->set_state(false);
-  this->e_pin_->set_state(false);
-  this->f_pin_->set_state(false);
-  this->g_pin_->set_state(false);
-  this->dp_pin_->set_state(false);
+  // this->a_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  // this->a_pin_->setup();
+  // this->a_pin_->digital_write(false);
+
+  // this->b_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  // this->b_pin_->setup();
+  // this->b_pin_->digital_write(false);
+
+  // this->c_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  // this->c_pin_->setup();
+  // this->c_pin_->digital_write(false);
+
+  // this->d_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  // this->d_pin_->setup();
+  // this->d_pin_->digital_write(false);
+
+  // this->e_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  // this->e_pin_->setup();
+  // this->e_pin_->digital_write(false);
+
+  // this->f_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  // this->f_pin_->setup();
+  // this->f_pin_->digital_write(false);
+
+  // this->g_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  // this->g_pin_->setup();
+  // this->g_pin_->digital_write(false);
+
+  // this->dp_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  // this->dp_pin_->setup();
+  // this->dp_pin_->digital_write(false);
 
   // TODO: Put this on Low again.
-  this->d1_pin_->set_state(true);
-  this->d2_pin_->set_state(true);
-  this->d3_pin_->set_state(true);
 
-  ESP_LOGCONFIG(TAG, "A Pin: %u", this->a_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "B Pin: %u", this->b_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "C Pin: %u", this->c_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "D Pin: %u", this->d_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "E Pin: %u", this->e_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "F Pin: %u", this->f_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "G Pin: %u", this->g_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "DP Pin: %u", this->dp_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "D1 Pin: %u", this->d1_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "D2 Pin: %u", this->d2_pin_->get_component_state());
-  ESP_LOGCONFIG(TAG, "D3 Pin: %u", this->d3_pin_->get_component_state());
+  this->d1_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  this->d1_pin_->setup();
+  this->d1_pin_->digital_write(true);
+
+  this->d2_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  this->d2_pin_->setup();
+  this->d2_pin_->digital_write(true);
+
+  this->d3_pin_->pin_mode(gpio::FLAG_OUTPUT);
+  this->d3_pin_->setup();
+  this->d3_pin_->digital_write(true);
 
   this->buffer_ = new uint8_t[3];
   this->buffer_size_ = sizeof(this->buffer_);
+
+  ESP_LOGCONFIG(TAG, "Terminei sabosta");
 }
 
 void THREE_SEVENSEGComponent::dump_config() {
