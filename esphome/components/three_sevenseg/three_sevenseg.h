@@ -14,7 +14,7 @@ using three_sevenseg_writer_t = display::DisplayWriter<THREE_SEVENSEGComponent>;
 
 class THREE_SEVENSEGComponent final : public PollingComponent {
  public:
-  explicit THREE_SEVENSEGComponent(uint8_t num_chips);
+  explicit THREE_SEVENSEGComponent();
 
   void set_writer(three_sevenseg_writer_t &&writer);
 
