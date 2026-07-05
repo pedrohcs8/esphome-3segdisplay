@@ -58,7 +58,7 @@ const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
     0b00000001,                   // '-', ord 0x2D
     0b10000000,                   // '.', ord 0x2E
     THREE_SEVENSEG_UNKNOWN_CHAR,  // '/', ord 0x2F
-    0b01111110,                   // '0', ord 0x30
+    0b10000001,                   // '0', ord 0x30
     0b00110000,                   // '1', ord 0x31
     0b01101101,                   // '2', ord 0x32
     0b01111001,                   // '3', ord 0x33
@@ -252,14 +252,14 @@ void THREE_SEVENSEGComponent::set_digit_(uint8_t digit, uint8_t ch, bool dot) {
 };
 
 void THREE_SEVENSEGComponent::clear_display_() {
-  this->a_pin_->digital_write(false);
-  this->b_pin_->digital_write(false);
-  this->c_pin_->digital_write(false);
-  this->d_pin_->digital_write(false);
-  this->e_pin_->digital_write(false);
-  this->f_pin_->digital_write(false);
-  this->g_pin_->digital_write(false);
-  this->dp_pin_->digital_write(false);
+  this->a_pin_->digital_write(true);
+  this->b_pin_->digital_write(true);
+  this->c_pin_->digital_write(true);
+  this->d_pin_->digital_write(true);
+  this->e_pin_->digital_write(true);
+  this->f_pin_->digital_write(true);
+  this->g_pin_->digital_write(true);
+  this->dp_pin_->digital_write(true);
 
   delay(20);
 }
