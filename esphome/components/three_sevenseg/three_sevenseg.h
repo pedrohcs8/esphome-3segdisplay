@@ -37,12 +37,27 @@ class THREE_SEVENSEGComponent final : public PollingComponent {
   void set_d2_pin(GPIOPin *d2_pin);
   void set_d3_pin(GPIOPin *d3_pin);
 
+  /// Evaluate the printf-format and print the result at the given position.
+  uint8_t printf(uint8_t pos, const char *format, ...) __attribute__((format(printf, 3, 4)));
+  /// Evaluate the printf-format and print the result at position 0.
+  uint8_t printf(const char *format, ...) __attribute__((format(printf, 2, 3)));
+
   /// Print `str` at the given position.
   uint8_t print(uint8_t pos, const char *str);
+  /// Print `str` at position 0.
+  uint8_t print(const char *str);
+  /// Print `str` at position 0.
+  uint8_t print(std::string str);
+
+  /// Evaluate the strftime-format and print the result at the given position.
+  uint8_t strftime(uint8_t pos, const char *format, ESPTime time) __attribute__((format(strftime, 3, 0)));
+
+  /// Evaluate the strftime-format and print the result at position 0.
+  uint8_t strftime(const char *format, ESPTime time) __attribute__((format(strftime, 2, 0)));
 
  protected:
   void clear_display_();
-  void set_digit_();
+  void set_digit_(uint8_t digit, uint8_t value, bool dp);
 
   GPIOPin *a_pin_{nullptr};
   GPIOPin *b_pin_{nullptr};

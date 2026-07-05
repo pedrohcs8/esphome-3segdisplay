@@ -202,9 +202,90 @@ void THREE_SEVENSEGComponent::dump_config() {
   LOG_UPDATE_INTERVAL(this);
 }
 
-void THREE_SEVENSEGComponent::display() {}
+// update
+void THREE_SEVENSEGComponent::update() {
+  if (this->writer_.has_value())
+    (*this->writer_)(*this);
+  this->display();
+}
 
-void THREE_SEVENSEGComponent::update() {}
+// display
+void THREE_SEVENSEGComponent::display() {
+  for (uint8_t i = 0; i < 3; i++) {
+    this->set_digit_(i, this->buffer_[i], false);
+  }
+}
 
-uint8_t THREE_SEVENSEGComponent::print(uint8_t start_pos, const char *str) {}
+void THREE_SEVENSEGComponent::set_digit_(uint8_t digit, uint8_t ch, bool dot) {
+  uint8_t segments = 0;
+  // concat to printable ASCII characters
+  if (ch < 128) {
+    segments = THREE_SEVENSEG_ASCII_TO_RAW[ch];
+  } else {
+    segments = 128;
+  }
+  segments = THREE_SEVENSEG_ASCII_TO_RAW[ch];
+
+  // write binary representation of the segments
+  this->clear_display_();
+
+  uint8_t ct = 0;
+  GPIOPin *pins[3] = {this->a_pin_, this->b_pin_, this->c_pin_};
+
+  for (GPIOPin *pin : pins) {
+    pin->digital_write(ct == digit);
+    ct++;
+  }
+
+  this->dp_pin_->digital_write((segments & 0b10000000) || dot);
+  this->a_pin_->digital_write(segments & 0b01000000);
+  this->b_pin_->digital_write(segments & 0b00100000);
+  this->c_pin_->digital_write(segments & 0b00010000);
+  this->d_pin_->digital_write(segments & 0b00001000);
+  this->e_pin_->digital_write(segments & 0b00000100);
+  this->f_pin_->digital_write(segments & 0b00000010);
+  this->g_pin_->digital_write(segments & 0b00000001);
+
+  delay(10);
+};
+
+void THREE_SEVENSEGComponent::clear_display_() {
+  this->a_pin_->digital_write(false);
+  this->b_pin_->digital_write(false);
+  this->c_pin_->digital_write(false);
+  this->d_pin_->digital_write(false);
+  this->e_pin_->digital_write(false);
+  this->f_pin_->digital_write(false);
+  this->g_pin_->digital_write(false);
+  this->dp_pin_->digital_write(false);
+
+  delay(20);
+}
+
+uint8_t THREE_SEVENSEGComponent::print(const char *str) { return this->print(0, str); }
+
+uint8_t THREE_SEVENSEGComponent::print(std::string str) { return this->print(0, str.c_str()); }
+
+uint8_t THREE_SEVENSEGComponent::printf(uint8_t pos, const char *format, ...) {
+  va_list arg;
+  va_start(arg, format);
+  char buffer[64];
+  int ret = vsnprintf(buffer, sizeof(buffer), format, arg);
+  va_end(arg);
+  if (ret > 0)
+    return this->print(pos, buffer);
+  return 0;
+}
+
+uint8_t THREE_SEVENSEGComponent::strftime(uint8_t pos, const char *format, ESPTime time) {
+  char buffer[64];
+  size_t ret = time.strftime(buffer, sizeof(buffer), format);
+  if (ret > 0)
+    return this->print(pos, buffer);
+  return 0;
+}
+
+uint8_t THREE_SEVENSEGComponent::strftime(const char *format, ESPTime time) { return this->strftime(0, format, time); }
+
 }  // namespace esphome::three_sevenseg
+// namespace esphome::three_sevenseg
