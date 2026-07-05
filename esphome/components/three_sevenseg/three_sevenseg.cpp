@@ -59,7 +59,7 @@ const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
     0b10000000,                   // '.', ord 0x2E
     THREE_SEVENSEG_UNKNOWN_CHAR,  // '/', ord 0x2F
     0b10000001,                   // '0', ord 0x30
-    0b00000000,                   // '1', ord 0x31
+    0b00110000,                   // '1', ord 0x31
     0b01101101,                   // '2', ord 0x32
     0b01111001,                   // '3', ord 0x33
     0b00110011,                   // '4', ord 0x34
@@ -201,6 +201,15 @@ void THREE_SEVENSEGComponent::setup() {
 
 void THREE_SEVENSEGComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "Teste foda?");
+
+  ESP_LOGCONFIG(TAG, "A Pin: %s", this->a_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "B Pin: %s", this->b_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "C Pin: %s", this->c_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "D Pin: %s", this->d_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "E Pin: %s", this->e_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "F Pin: %s", this->f_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "G Pin: %s", this->g_pin_->dump_summary().c_str());
+  ESP_LOGCONFIG(TAG, "DP Pin: %s", this->dp_pin_->dump_summary().c_str());
 
   LOG_UPDATE_INTERVAL(this);
 }
