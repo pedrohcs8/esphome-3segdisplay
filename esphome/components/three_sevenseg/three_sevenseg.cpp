@@ -201,6 +201,9 @@ void THREE_SEVENSEGComponent::setup() {
 
 void THREE_SEVENSEGComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "Teste foda?");
+
+  printTempHum(36.5f);
+
   LOG_UPDATE_INTERVAL(this);
 }
 
@@ -250,7 +253,7 @@ void THREE_SEVENSEGComponent::set_digit_(uint8_t digit, uint8_t ch, bool dot) {
   this->f_pin_->digital_write(!(segments & 0b00000010));
   this->g_pin_->digital_write(!(segments & 0b00000001));
 
-  delay(5);
+  delay(1);
 };
 
 void THREE_SEVENSEGComponent::clear_display_() {
@@ -267,7 +270,7 @@ void THREE_SEVENSEGComponent::clear_display_() {
   this->d2_pin_->digital_write(false);
   this->d3_pin_->digital_write(false);
 
-  delay(10);
+  delay(2);
 }
 
 // print functions
@@ -319,15 +322,18 @@ uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
   return 0;
 }
 
-uint8_t THREE_SEVENSEGComponent::strftime(uint8_t pos, const char *format, ESPTime time) {
-  char buffer[64];
-  size_t ret = time.strftime(buffer, sizeof(buffer), format);
-  if (ret > 0)
-    return this->print(pos, buffer);
-  return 0;
-}
+uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
+  char displayNumbers[3];
+  snprintf(displayNumbers, 3, "%f", tempHum);
 
-uint8_t THREE_SEVENSEGComponent::strftime(const char *format, ESPTime time) { return this->strftime(0, format, time); }
+  uint8_t firstDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
+  uint8_t secondDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
+  uint8_t thirdDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
+
+  set_digit_(0, firstDigit, false);
+  set_digit_(1, secondDigit, true);
+  set_digit_(2, thirdDigit, false);
+}
 
 }  // namespace esphome::three_sevenseg
 // namespace esphome::three_sevenseg
