@@ -333,6 +333,8 @@ uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
   set_digit_(0, firstDigit, false);
   set_digit_(1, secondDigit, true);
   set_digit_(2, thirdDigit, false);
+
+  return 0;
 }
 
 }  // namespace esphome::three_sevenseg
