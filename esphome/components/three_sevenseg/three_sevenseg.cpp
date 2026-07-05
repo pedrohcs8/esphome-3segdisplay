@@ -7,7 +7,7 @@ namespace esphome::three_sevenseg {
 
 static const char *const TAG = "three_sevenseg";
 
-static const uint8_t THREE_THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
+static const uint8_t THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
 
 const uint8_t THREE_SEVENSEG_ASCII_TO_RAW[128] PROGMEM = {
     THREE_SEVENSEG_UNKNOWN_CHAR,  // 0x00
