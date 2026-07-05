@@ -156,49 +156,38 @@ void THREE_SEVENSEGComponent::set_d3_pin(GPIOPin *d3_pin) { this->d3_pin_ = d3_p
 void THREE_SEVENSEGComponent::setup() {
   ESP_LOGCONFIG(TAG, "Iniciando Display 3 Segmentos!");
 
-  this->a_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->a_pin_->setup();
   this->a_pin_->digital_write(false);
 
-  this->b_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->b_pin_->setup();
   this->b_pin_->digital_write(false);
 
-  this->c_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->c_pin_->setup();
   this->c_pin_->digital_write(false);
 
-  this->d_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->d_pin_->setup();
   this->d_pin_->digital_write(false);
 
-  this->e_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->e_pin_->setup();
   this->e_pin_->digital_write(false);
 
-  this->f_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->f_pin_->setup();
   this->f_pin_->digital_write(false);
 
-  this->g_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->g_pin_->setup();
   this->g_pin_->digital_write(false);
 
-  this->dp_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->dp_pin_->setup();
   this->dp_pin_->digital_write(false);
 
   // TODO: Put this on Low again.
 
-  this->d1_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->d1_pin_->setup();
   this->d1_pin_->digital_write(true);
 
-  this->d2_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->d2_pin_->setup();
   this->d2_pin_->digital_write(true);
 
-  this->d3_pin_->pin_mode(gpio::FLAG_OUTPUT);
   this->d3_pin_->setup();
   this->d3_pin_->digital_write(true);
 
@@ -209,8 +198,7 @@ void THREE_SEVENSEGComponent::setup() {
 }
 
 void THREE_SEVENSEGComponent::dump_config() {
-  ESP_LOGCONFIG(TAG, "Teste foda");
-  ESP_LOGCONFIG(TAG, "Estados: %u, %u, %u, %u, %u, %u, %u", a_pin_, b_pin_, c_pin_, d1_pin_, d2_pin_, d3_pin_);
+  ESP_LOGCONFIG(TAG, "Teste foda?");
   LOG_UPDATE_INTERVAL(this);
 }
 
