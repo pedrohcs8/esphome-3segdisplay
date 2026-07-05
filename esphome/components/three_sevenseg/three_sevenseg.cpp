@@ -202,8 +202,6 @@ void THREE_SEVENSEGComponent::setup() {
 void THREE_SEVENSEGComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "Teste foda?");
 
-  printTempHum(36.5f);
-
   LOG_UPDATE_INTERVAL(this);
 }
 
