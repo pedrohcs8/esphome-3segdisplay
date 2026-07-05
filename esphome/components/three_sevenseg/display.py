@@ -69,13 +69,13 @@ async def to_code(config):
     cg.add(var.set_dp_pin(pin_dp))
 
     pin_d1 = await cg.gpio_pin_expression(config[CONF_D1_PIN])
-    cg.add(var.set_g_pin(pin_d1))
+    cg.add(var.set_d1_pin(pin_d1))
 
     pin_d2 = await cg.gpio_pin_expression(config[CONF_D2_PIN])
-    cg.add(var.set_g_pin(pin_d2))
+    cg.add(var.set_d2_pin(pin_d2))
 
     pin_d3 = await cg.gpio_pin_expression(config[CONF_D3_PIN])
-    cg.add(var.set_g_pin(pin_d3))
+    cg.add(var.set_d3_pin(pin_d3))
 
     if CONF_LAMBDA in config:
         lambda_ = await cg.process_lambda(
