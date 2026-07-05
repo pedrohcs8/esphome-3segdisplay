@@ -231,7 +231,7 @@ void THREE_SEVENSEGComponent::set_digit_(uint8_t digit, uint8_t ch, bool dot) {
   this->clear_display_();
 
   uint8_t ct = 0;
-  GPIOPin *pins[3] = {this->a_pin_, this->b_pin_, this->c_pin_};
+  GPIOPin *pins[3] = {this->d1_pin_, this->d2_pin_, this->d3_pin_};
 
   for (GPIOPin *pin : pins) {
     pin->digital_write(ct == digit);
