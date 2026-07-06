@@ -320,7 +320,7 @@ uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
   return 0;
 }
 
-uint8_t THREE_SEVENSEGComponent::switchDisplay(int display, float temp, float hum) {
+uint8_t THREE_SEVENSEGComponent::switchDisplay(int display, float temp, float hum, float eco2, float tvoc, float aqi) {
   switch (display) {
     case 1: {
       print("TEP");
@@ -341,6 +341,36 @@ uint8_t THREE_SEVENSEGComponent::switchDisplay(int display, float temp, float hu
       printTempHum(hum);
       break;
     }
+
+    case 5: {
+      print("CO2");
+      break;
+    }
+
+    case 6: {
+      printECO2TVOC(eco2);
+      break;
+    }
+
+    case 7: {
+      print("TOV");
+      break;
+    }
+
+    case 8: {
+      printECO2TVOC(tvoc);
+      break;
+    }
+
+    case 9: {
+      print("AQI");
+      break;
+    }
+
+    case 10: {
+      printECO2TVOC(aqi);
+      break;
+    }
   }
 
   return 0;
@@ -353,6 +383,29 @@ uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
   this->print(0, &displayNumbers[0]);
   this->print(1, &displayNumbers[1]);
   this->print(2, &displayNumbers[3]);
+
+  return 0;
+}
+
+uint8_t THREE_SEVENSEGComponent::printECO2TVOC(float eco2TVOC) {
+  // AQI condition
+  if (eco2TVOC > 0 && eco2TVOC < 5) {
+    char displayNumbers[6];
+    snprintf(displayNumbers, 6, "%f", eco2TVOC);
+
+    this->print(0, "0");
+    this->print(1, "0");
+    this->print(2, &displayNumbers[0]);
+
+    return 0;
+  }
+
+  char displayNumbers[6];
+  snprintf(displayNumbers, 6, "%f", eco2TVOC);
+
+  this->print(0, &displayNumbers[0]);
+  this->print(1, &displayNumbers[1]);
+  this->print(2, &displayNumbers[2]);
 
   return 0;
 }

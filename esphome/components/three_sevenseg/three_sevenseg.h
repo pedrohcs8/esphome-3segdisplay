@@ -49,7 +49,7 @@ class THREE_SEVENSEGComponent final : public PollingComponent, public Trigger<> 
   /// Print `str` at position 0.
   uint8_t print(std::string str);
 
-  uint8_t switchDisplay(int display, float temp, float hum);
+  uint8_t switchDisplay(int display, float temp, float hum, float eco2, float tvoc, float aqui);
 
  protected:
   void clear_display_();
