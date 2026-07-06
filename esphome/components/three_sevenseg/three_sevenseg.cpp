@@ -339,6 +339,8 @@ uint8_t THREE_SEVENSEGComponent::switchDisplay() {
   if (currentStage > 2) {
     currentStage = 0;
   }
+
+  return 0;
 }
 
 uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
