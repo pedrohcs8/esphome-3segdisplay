@@ -320,7 +320,7 @@ uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
   return 0;
 }
 
-uint8_t THREE_SEVENSEGComponent::switchDisplay(int display, float tempHum) {
+uint8_t THREE_SEVENSEGComponent::switchDisplay(int display, float temp, float hum) {
   switch (display) {
     case 1: {
       print("TEP");
@@ -328,7 +328,17 @@ uint8_t THREE_SEVENSEGComponent::switchDisplay(int display, float tempHum) {
     }
 
     case 2: {
-      printTempHum(tempHum);
+      printTempHum(temp);
+      break;
+    }
+
+    case 3: {
+      print("HUM");
+      break;
+    }
+
+    case 4: {
+      printTempHum(hum);
       break;
     }
   }
