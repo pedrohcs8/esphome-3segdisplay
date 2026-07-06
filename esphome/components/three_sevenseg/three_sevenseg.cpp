@@ -5,6 +5,10 @@
 
 namespace esphome::three_sevenseg {
 
+int currentStage = 0;
+bool displayTempTitle = false;
+bool displayTemp = false;
+
 static const char *const TAG = "three_sevenseg";
 
 static const uint8_t THREE_SEVENSEG_UNKNOWN_CHAR = 0b11111111;
@@ -320,17 +324,31 @@ uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
   return 0;
 }
 
+uint8_t THREE_SEVENSEGComponent::switchDisplay() {
+  currentStage++;
+
+  if (currentStage == 0) {
+    print("TEP");
+  }
+
+  if (currentStage > 2) {
+    currentStage = 0;
+  }
+}
+
 uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
-  char displayNumbers[6];
-  snprintf(displayNumbers, 6, "%f", tempHum);
+  if (currentStage = 1) {
+    char displayNumbers[6];
+    snprintf(displayNumbers, 6, "%f", tempHum);
 
-  // uint8_t firstDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
-  // uint8_t secondDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[1]];
-  // uint8_t thirdDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[2]];
+    // uint8_t firstDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
+    // uint8_t secondDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[1]];
+    // uint8_t thirdDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[2]];
 
-  this->print(0, &displayNumbers[0]);
-  this->print(1, &displayNumbers[1]);
-  this->print(2, &displayNumbers[3]);
+    this->print(0, &displayNumbers[0]);
+    this->print(1, &displayNumbers[1]);
+    this->print(2, &displayNumbers[3]);
+  }
 
   return 0;
 }

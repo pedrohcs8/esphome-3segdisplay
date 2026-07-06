@@ -49,6 +49,8 @@ class THREE_SEVENSEGComponent final : public PollingComponent {
   /// Print `str` at position 0.
   uint8_t print(std::string str);
 
+  uint8_t switchDisplay();
+
   uint8_t printTempHum(float tempHum);
   uint8_t printECO2TVOC(float eco2tvoc);
 
