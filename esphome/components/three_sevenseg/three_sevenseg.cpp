@@ -327,13 +327,6 @@ uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
 }
 
 uint8_t THREE_SEVENSEGComponent::switchDisplay() {
-  switch (currentStage) {
-    case 0: {
-      print("TEP");
-      break;
-    }
-  }
-
   currentStage++;
 
   if (currentStage > 2) {
@@ -346,6 +339,10 @@ uint8_t THREE_SEVENSEGComponent::switchDisplay() {
 }
 
 uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
+  if (currentStage = 0) {
+    print("TEP");
+  }
+
   if (currentStage = 1) {
     char displayNumbers[6];
     snprintf(displayNumbers, 6, "%f", tempHum);
