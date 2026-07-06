@@ -200,6 +200,8 @@ void THREE_SEVENSEGComponent::setup() {
   this->buffer_ = new uint8_t[3];
   this->buffer_size_ = sizeof(this->buffer_);
 
+  this->set_timeout(10, [this] { this->switchDisplay(); });
+
   ESP_LOGCONFIG(TAG, "Terminei sabosta");
 }
 
@@ -325,11 +327,14 @@ uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
 }
 
 uint8_t THREE_SEVENSEGComponent::switchDisplay() {
-  currentStage++;
-
-  if (currentStage == 0) {
-    print("TEP");
+  switch (currentStage) {
+    case 0: {
+      print("TEP");
+      break;
+    }
   }
+
+  currentStage++;
 
   if (currentStage > 2) {
     currentStage = 0;
