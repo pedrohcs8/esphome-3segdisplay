@@ -332,6 +332,8 @@ uint8_t THREE_SEVENSEGComponent::switchDisplay(int display, float tempHum) {
       break;
     }
   }
+
+  return 0;
 }
 
 uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
