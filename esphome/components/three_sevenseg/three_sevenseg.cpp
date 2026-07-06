@@ -340,6 +340,8 @@ uint8_t THREE_SEVENSEGComponent::switchDisplay() {
     currentStage = 0;
   }
 
+  this->set_timeout(10, [this] { this->switchDisplay(); });
+
   return 0;
 }
 
