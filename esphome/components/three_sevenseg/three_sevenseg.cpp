@@ -200,8 +200,6 @@ void THREE_SEVENSEGComponent::setup() {
   this->buffer_ = new uint8_t[3];
   this->buffer_size_ = sizeof(this->buffer_);
 
-  this->set_timeout(10, [this] { this->switchDisplay(); });
-
   ESP_LOGCONFIG(TAG, "Terminei sabosta");
 }
 
@@ -216,7 +214,6 @@ void THREE_SEVENSEGComponent::update() {
   if (this->writer_.has_value())
     (*this->writer_)(*this);
   this->display();
-  this->trigger();
 }
 
 // display
@@ -258,7 +255,7 @@ void THREE_SEVENSEGComponent::set_digit_(uint8_t digit, uint8_t ch, bool dot) {
   this->f_pin_->digital_write(!(segments & 0b00000010));
   this->g_pin_->digital_write(!(segments & 0b00000001));
 
-  delay(1);
+  delay_microseconds_safe(500);
 };
 
 void THREE_SEVENSEGComponent::clear_display_() {
@@ -275,7 +272,7 @@ void THREE_SEVENSEGComponent::clear_display_() {
   this->d2_pin_->digital_write(false);
   this->d3_pin_->digital_write(false);
 
-  delay(2);
+  delay_microseconds_safe(700);
 }
 
 // print functions
@@ -327,14 +324,18 @@ uint8_t THREE_SEVENSEGComponent::printf(const char *format, ...) {
   return 0;
 }
 
-uint8_t THREE_SEVENSEGComponent::switchDisplay() {
-  currentStage++;
+uint8_t THREE_SEVENSEGComponent::switchDisplay(int display, float tempHum) {
+  switch (display) {
+    case 1: {
+      print("TEP");
+      break;
+    }
 
-  if (currentStage > 2) {
-    currentStage = -1;
+    case 2: {
+      printTempHum(tempHum);
+      break;
+    }
   }
-
-  return 0;
 }
 
 uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
@@ -345,10 +346,6 @@ uint8_t THREE_SEVENSEGComponent::printTempHum(float tempHum) {
   if (currentStage = 1) {
     char displayNumbers[6];
     snprintf(displayNumbers, 6, "%f", tempHum);
-
-    // uint8_t firstDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[0]];
-    // uint8_t secondDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[1]];
-    // uint8_t thirdDigit = THREE_SEVENSEG_ASCII_TO_RAW[displayNumbers[2]];
 
     this->print(0, &displayNumbers[0]);
     this->print(1, &displayNumbers[1]);

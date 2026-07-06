@@ -49,14 +49,14 @@ class THREE_SEVENSEGComponent final : public PollingComponent, public Trigger<> 
   /// Print `str` at position 0.
   uint8_t print(std::string str);
 
-  uint8_t switchDisplay();
-
-  uint8_t printTempHum(float tempHum);
-  uint8_t printECO2TVOC(float eco2tvoc);
+  uint8_t switchDisplay(int display, float tempHum);
 
  protected:
   void clear_display_();
   void set_digit_(uint8_t digit, uint8_t value, bool dp);
+
+  uint8_t printTempHum(float tempHum);
+  uint8_t printECO2TVOC(float eco2tvoc);
 
   GPIOPin *a_pin_{nullptr};
   GPIOPin *b_pin_{nullptr};
