@@ -11,7 +11,7 @@ class THREE_SEVENSEGComponent;
 
 using three_sevenseg_writer_t = display::DisplayWriter<THREE_SEVENSEGComponent>;
 
-class THREE_SEVENSEGComponent final : public PollingComponent {
+class THREE_SEVENSEGComponent final : public PollingComponent, public Trigger<> {
  public:
   void set_writer(three_sevenseg_writer_t &&writer);
 

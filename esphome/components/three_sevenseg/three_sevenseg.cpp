@@ -216,6 +216,7 @@ void THREE_SEVENSEGComponent::update() {
   if (this->writer_.has_value())
     (*this->writer_)(*this);
   this->display();
+  this->trigger();
 }
 
 // display
@@ -332,8 +333,6 @@ uint8_t THREE_SEVENSEGComponent::switchDisplay() {
   if (currentStage > 2) {
     currentStage = -1;
   }
-
-  this->set_timeout(10, [this] { this->switchDisplay(); });
 
   return 0;
 }
