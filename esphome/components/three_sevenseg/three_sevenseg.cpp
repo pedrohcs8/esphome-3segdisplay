@@ -337,7 +337,7 @@ uint8_t THREE_SEVENSEGComponent::switchDisplay() {
   currentStage++;
 
   if (currentStage > 2) {
-    currentStage = 0;
+    currentStage = -1;
   }
 
   this->set_timeout(10, [this] { this->switchDisplay(); });
